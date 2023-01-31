@@ -4,25 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createGlobalStyle} from "styled-components";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
 
 const Global = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Inter;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+  }
 `
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Global/>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <Global/>
+      <App/>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
