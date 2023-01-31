@@ -1,27 +1,41 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 type BlogItemType = {
+  id: string
   title: string
   webSite: string,
   description: string
+  creationDate?: string
+  isShow: boolean
 }
 
-export const BlogItem:FC<BlogItemType> = ({title, webSite, description}) => {
+export const BlogItem:FC<BlogItemType> = ({id, title, webSite, description, creationDate, isShow}) => {
   return (
     <Item>
       <ImgWrapper>
         <img src="https://via.placeholder.com/156.png/" alt="image blog"/>
       </ImgWrapper>
 
-      <div>
-        <Title>{title}</Title>
-        <div>
+      <ContentBlog>
+        {!isShow
+          ? <Link to={`/blogs/${id}`}>
+            <Title>{title}</Title>
+          </Link>
+          : <Title>{title}</Title>
+        }
+
+          { !!creationDate &&
+              <CreationDate>Blog creation date: <span>{creationDate}</span></CreationDate> }
+
           <WebSite>Website: </WebSite>
-          <Link href={webSite}> {webSite} </Link>
+          <LinkWebSite href={webSite}> {webSite}</LinkWebSite>
           <Description>{description}</Description>
-        </div>
-      </div>
+          {isShow && <ShowMore>Show more</ShowMore>}
+
+      </ContentBlog>
+
     </Item>
   );
 };
@@ -61,7 +75,7 @@ const WebSite = styled.span`
   font-weight: 400;
   font-size: 18px;
 `
-const Link = styled.a`
+const LinkWebSite = styled.a`
   color: #3677F7;
   font-weight: 400;
   font-size: 18px;
@@ -71,4 +85,23 @@ const Description = styled.p`
   font-weight: 400;
   padding: 20px 0;
   color: #1A1718;
+`
+
+const CreationDate = styled.div`
+  color: #737067;
+  font-weight: 400;
+  font-size: 18px;
+  padding: 5px 0;
+  span {
+    color: #000000;
+  }
+`
+
+const ContentBlog = styled.div`
+  flex-basis: 80% ;
+`
+
+const ShowMore = styled.div`
+  text-align: center;
+  cursor: pointer;
 `
