@@ -7,5 +7,13 @@ const instance = axios.create({
 export const API = {
   getBlogs() {
     return instance.get('blogs')
+  },
+
+  getPostsForBlogs(id: string) {
+    return instance.get(`blogs/${id}/posts`)
+  },
+
+  getBlogByID(id: string) {
+    return instance.get(`blogs/${id}`)
   }
 }

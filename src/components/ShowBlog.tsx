@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../store/store";
-import {BlogType} from "../reducers/blogsReducer";
+import {AppDispatch, AppRootStateType} from "../store/store";
+import {BlogType, fetchBlogByID, fetchBlogs} from "../reducers/blogsReducer";
 import {BlogItem} from "./BlogItem";
+import {PostItem} from "./PostItem";
+import {PostList} from "./PostList";
 
 export const ShowBlog = () => {
   const {id} = useParams()
   const navigate = useNavigate();
   const blogs = useSelector<AppRootStateType, BlogType[]>(state => state.blogs.blogs)
+  // const openedBlog = useSelector<AppRootStateType, BlogType | undefined>(state => state.blogs.openedBlog)
+  const dispatch = AppDispatch()
 
   const blog = blogs.find(b => b.id === id)
 
-  const back = () => {
-    navigate(-1)
-  }
-
+  const back = () => navigate(-1)
 
   return (
     <div>
@@ -23,7 +24,7 @@ export const ShowBlog = () => {
       <div>
         <img src="https://via.placeholder.com/1000x312.png" alt=""/>
       </div>
-      {blog &&
+      {blog &&<>
           <BlogItem
               id={blog.id}
               title={blog.name}
@@ -32,6 +33,8 @@ export const ShowBlog = () => {
               creationDate={blog.createdAt}
               isShow={true}
           />
+        <PostList blogID={blog.id}/>
+      </>
       }
     </div>
   );

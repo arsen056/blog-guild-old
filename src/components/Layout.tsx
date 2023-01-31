@@ -17,7 +17,7 @@ export const Layout = () => {
           <Route path={'/'} element={<Navigate to={'/blogs'}/>}/>
           <Route path={'/blogs'} element={<MainContent title={'Blogs'} element={ <BlogList/> }/>}/>
           <Route path={'/blogs/:id'} element={<MainContent title={'Blogs'} element={ <ShowBlog/> }/>}/>
-          <Route path={'/posts'} element={<MainContent title={'Posts'} element={ <PostList/>}/>}/>
+          {/*<Route path={'/posts'} element={<MainContent title={'Posts'} element={ <PostList/>}/>}/>*/}
           <Route path={'/404'} element={<h2>Not Found</h2>}/>
           <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
         </Routes>

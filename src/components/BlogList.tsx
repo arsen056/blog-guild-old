@@ -8,14 +8,13 @@ import styled from "styled-components";
 
 export const BlogList = () => {
 
-
   const dispatch = AppDispatch()
+
+  const blogs = useSelector<AppRootStateType, BlogType[]>(state => state.blogs.blogs)
 
   useEffect(() => {
     dispatch(fetchBlogs())
-  }, [])
-
-  const blogs = useSelector<AppRootStateType, BlogType[]>(state => state.blogs.blogs)
+  }, [blogs])
 
   const blogsMap = blogs.map(b => <BlogItem key={b.id} id={b.id} title={b.name} webSite={b.websiteUrl} description={b.description} isShow={false}/>)
 

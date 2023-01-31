@@ -2,10 +2,8 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 
 type MainContentType = {
-
   title: string
   element: React.ReactNode
-
 }
 
 export const MainContent:FC<MainContentType> = ({title, element}) => {
