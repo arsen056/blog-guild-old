@@ -2,26 +2,35 @@ import React, {FC, useEffect} from 'react';
 import {PostItem} from "./PostItem";
 import styled from "styled-components";
 import {AppDispatch, AppRootStateType} from "../store/store";
-import {fetchPostsForBlogs, PostType} from "../reducers/postsReducer";
+import {fetchPostsForBlogs, getPosts, PostType} from "../reducers/postsReducer";
 import {useSelector} from "react-redux";
 
 type PostListPropsType = {
-  blogID: string
+  blogID?: string
 }
 
 export const PostList: FC<PostListPropsType> = ({blogID}) => {
+
   const dispatch = AppDispatch()
 
   const posts = useSelector<AppRootStateType, PostType[]>(state => state.posts.posts)
 
   useEffect(() => {
-    dispatch(fetchPostsForBlogs(blogID))
+    if (blogID) {
+      dispatch(fetchPostsForBlogs(blogID))
+    } else {
+      dispatch(getPosts())
+    }
+
   }, [])
 
   const postsMap = posts.length
-    ? posts.map(post =>
-      <PostItem title={post.title} description={post.shortDescription} date={post.createdAt}/> )
+    ? posts.map(post => {
+      return <PostItem key={post.id} blogID={blogID} postid={post.id} title={post.title} description={post.shortDescription} date={post.createdAt}/>
+    })
     : <h3>Post list empty</h3>
+
+
 
   return (
     <PostsWrapper>

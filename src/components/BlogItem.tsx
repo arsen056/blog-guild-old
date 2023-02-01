@@ -11,7 +11,9 @@ type BlogItemType = {
   isShow: boolean
 }
 
-export const BlogItem:FC<BlogItemType> = ({id, title, webSite, description, creationDate, isShow}) => {
+export const BlogItem: FC<BlogItemType> = ({id, title, webSite, description, creationDate, isShow}) => {
+
+
   return (
     <Item>
       <ImgWrapper>
@@ -20,19 +22,19 @@ export const BlogItem:FC<BlogItemType> = ({id, title, webSite, description, crea
 
       <ContentBlog>
         {!isShow
-          ? <Link to={`/blogs/${id}`}>
+          ? <NavLink to={`/blogs/${id}`}>
             <Title>{title}</Title>
-          </Link>
+          </NavLink>
           : <Title>{title}</Title>
         }
 
-          { !!creationDate &&
-              <CreationDate>Blog creation date: <span>{creationDate}</span></CreationDate> }
+        {!!creationDate &&
+            <CreationDate>Blog creation date: <span>{creationDate}</span></CreationDate>}
 
-          <WebSite>Website: </WebSite>
-          <LinkWebSite href={webSite}> {webSite}</LinkWebSite>
-          <Description>{description}</Description>
-          {isShow && <ShowMore>Show more</ShowMore>}
+        <WebSite>Website: </WebSite>
+        <LinkWebSite href={webSite}> {webSite}</LinkWebSite>
+        <Description>{description}</Description>
+        {isShow && <ShowMore>Show more</ShowMore>}
 
       </ContentBlog>
 
@@ -45,7 +47,7 @@ const Item = styled.div`
   display: flex;
   column-gap: 2rem;
   border-bottom: 2px solid #DEDBDC;
-  
+
   :last-child {
     border: none;
   }
@@ -55,22 +57,29 @@ const ImgWrapper = styled.div`
   width: 156px;
   height: 156px;
   border-radius: 50%;
-  
+
   img {
     overflow: hidden;
     max-width: 100%;
     height: auto;
-    border-radius: 50%;    
+    border-radius: 50%;
   }
 `
 
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: #1A1718;
+`
+
 const Title = styled.h3`
+  display: inline-block;
   font-size: 25px;
   font-weight: 600;
   padding: 0 0 10px 0;
 `
 
-const WebSite = styled.span`
+
+const WebSite = styled.div`
   color: #737067;
   font-weight: 400;
   font-size: 18px;
@@ -92,13 +101,14 @@ const CreationDate = styled.div`
   font-weight: 400;
   font-size: 18px;
   padding: 5px 0;
+
   span {
     color: #000000;
   }
 `
 
 const ContentBlog = styled.div`
-  flex-basis: 80% ;
+  flex-basis: 80%;
 `
 
 const ShowMore = styled.div`

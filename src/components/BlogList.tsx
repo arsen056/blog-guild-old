@@ -14,7 +14,7 @@ export const BlogList = () => {
 
   useEffect(() => {
     dispatch(fetchBlogs())
-  }, [blogs])
+  }, [])
 
   const blogsMap = blogs.map(b => <BlogItem key={b.id} id={b.id} title={b.name} webSite={b.websiteUrl} description={b.description} isShow={false}/>)
 

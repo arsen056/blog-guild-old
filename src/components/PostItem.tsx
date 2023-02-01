@@ -1,19 +1,27 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
+import {Link, NavLink, useParams} from "react-router-dom";
 
 type PostItemPropsType = {
+  postid: string
+  blogID?: string
   title: string
-  description: string
+  description?: string
+  blogName?: string
   date: string
 }
 
-export const PostItem: FC<PostItemPropsType> = ({title, date, description}) => {
+export const PostItem: FC<PostItemPropsType> = ({postid,blogName, blogID, title, date, description}) => {
+
   return (
     <PostItemStyled className={'post-item'}>
       <div>
         <img className={'post-img'} src="https://via.placeholder.com/300x180.png/" alt=""/>
       </div>
-      <Title className={'post-title'}>{title}</Title>
+      <NavLink to={`${postid}`}>
+        <Title className={'post-title'}>{title}</Title>
+      </NavLink>
+      <p>{blogName}</p>
       <p className={'post-description'}>{description}</p>
       <Date className={'post-date'}>{date}</Date>
     </PostItemStyled>
@@ -32,4 +40,5 @@ const Date = styled.div`
 
 const Title = styled.h3`
   padding: 10px 0;
+  display: inline-block;
 `

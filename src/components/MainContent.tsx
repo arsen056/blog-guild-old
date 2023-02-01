@@ -1,17 +1,17 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
+import {Outlet} from "react-router-dom";
 
 type MainContentType = {
   title: string
-  element: React.ReactNode
 }
 
-export const MainContent:FC<MainContentType> = ({title, element}) => {
+export const MainContent:FC<MainContentType> = ({title}) => {
   return (
     <Main>
       <Title>{title}</Title>
       <div>
-        {element}
+        <Outlet/>
       </div>
     </Main>
   );

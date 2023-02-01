@@ -1,6 +1,5 @@
 import {AppThunk} from "../store/store";
 import {API} from "../API/Api";
-import {setBlogs} from "./blogsReducer";
 
 const initState: postsStateType = {
   posts: [],
@@ -15,7 +14,7 @@ export type postsStateType = {
 export const postsReducer = (state= initState, action: PostsActionType) => {
   switch (action.type) {
     case "POSTS/SET_POSTS":
-      return {...state, posts: action.posts}
+      return {...state, posts: action.posts, totalCount: action.totalCount}
     default:
       return state
   }
@@ -33,7 +32,7 @@ export type PostType = {
 
 export type PostsActionType = ReturnType<typeof setPosts>
 
-export const setPosts = (posts: [], totalCount: number) => ({type: 'POSTS/SET_POSTS', posts, totalCount} as const)
+export const setPosts = (posts: PostType[], totalCount: number) => ({type: 'POSTS/SET_POSTS', posts, totalCount} as const)
 
 export const fetchPostsForBlogs = (id: string): AppThunk => async dispatch => {
   try {
@@ -43,3 +42,23 @@ export const fetchPostsForBlogs = (id: string): AppThunk => async dispatch => {
     console.log(error)
   }
 }
+
+export const getPosts = (): AppThunk => async dispatch => {
+  try {
+    const res = await API.getPosts();
+    dispatch(setPosts(res.data.items, res.data.totalCount))
+  } catch (error: any) {
+    console.log(error)
+  }
+}
+
+
+export const getPostByID = (postID: string): AppThunk => async dispatch => {
+  try {
+    const res = await API.getPostByID(postID);
+    dispatch(setPosts([res.data], 2))
+  } catch (error: any) {
+    console.log(error)
+  }
+}
+

@@ -3,7 +3,6 @@ import {API} from "../API/Api";
 
 const initState: InitStateBlogs = {
   blogs: [],
-  openedBlog: null,
 }
 
 export const blogReducer = (state= initState, action: BlogsReducerAT) => {
@@ -19,19 +18,18 @@ export const blogReducer = (state= initState, action: BlogsReducerAT) => {
 
 export type InitStateBlogs = {
   blogs: BlogType[]
-  openedBlog: BlogType | null
 }
 
 export type BlogType = {
-  "id": string,
-  "name": string,
-  "description": string,
-  "websiteUrl": string,
-  "createdAt": string
+  id: string,
+  name: string,
+  description: string,
+  websiteUrl: string,
+  createdAt: string,
 }
 
 export type BlogsReducerAT = ReturnType<typeof setBlogs> | ReturnType<typeof setOpenedBlog>
-export const setBlogs = (blogs: any) => ({type: 'BLOGS/SET_BLOGS', blogs} as const)
+export const setBlogs = (blogs: BlogType[]) => ({type: 'BLOGS/SET_BLOGS', blogs} as const)
 export const setOpenedBlog = (blog: BlogType) => ({type: 'BLOGS/SET_OPENED_BLOG', blog} as const)
 
 export const fetchBlogs = (): AppThunk => async dispatch => {
@@ -46,7 +44,7 @@ export const fetchBlogs = (): AppThunk => async dispatch => {
 export const fetchBlogByID = (id: string): AppThunk => async dispatch => {
   try {
     const res = await API.getBlogByID(id)
-    dispatch(setOpenedBlog(res.data))
+    dispatch(setBlogs([res.data]))
 
   } catch (error: any) {
     console.log(error)
