@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'https://ht-02-03.vercel.app/api/',
+  baseURL: 'https://blogs-and-posts-ver2-dgfu.vercel.app/',
 })
 
 export const API = {
