@@ -4,6 +4,9 @@ import {AppDispatch, AppRootStateType} from "../store/store";
 import {BlogType, fetchBlogs} from "../reducers/blogsReducer";
 import {BlogItem} from "./BlogItem";
 import styled from "styled-components";
+import {WrapperContent} from "./WrapperContent";
+import {StatusAppType} from "../reducers/appReducer";
+import {Loader} from "./Loader";
 
 
 export const BlogList = () => {
@@ -11,6 +14,7 @@ export const BlogList = () => {
   const dispatch = AppDispatch()
 
   const blogs = useSelector<AppRootStateType, BlogType[]>(state => state.blogs.blogs)
+  const status = useSelector<AppRootStateType, StatusAppType>(state => state.app.status)
 
   useEffect(() => {
     dispatch(fetchBlogs())
@@ -19,14 +23,16 @@ export const BlogList = () => {
   const blogsMap = blogs.map(b => <BlogItem key={b.id} id={b.id} title={b.name} webSite={b.websiteUrl} description={b.description} isShow={false}/>)
 
   return (
-    <>
+    <WrapperContent>
       <div>
-        {blogsMap}
+        {status === 'loading'
+          ? <Loader/>
+          :blogsMap}
       </div>
       <ButtonWrapper>
         <button>Show more</button>
       </ButtonWrapper>
-    </>
+    </WrapperContent>
   );
 };
 

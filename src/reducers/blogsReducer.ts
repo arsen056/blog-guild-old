@@ -1,5 +1,6 @@
 import {AppThunk} from "../store/store";
 import {API} from "../API/Api";
+import {appSetStatus} from "./appReducer";
 
 const initState: InitStateBlogs = {
   blogs: [],
@@ -34,19 +35,24 @@ export const setOpenedBlog = (blog: BlogType) => ({type: 'BLOGS/SET_OPENED_BLOG'
 
 export const fetchBlogs = (): AppThunk => async dispatch => {
   try {
+    dispatch(appSetStatus('loading'))
     const res = await API.getBlogs()
     dispatch(setBlogs(res.data.items))
   } catch (error: any) {
     console.log(error)
+  } finally {
+    dispatch(appSetStatus('success'))
   }
 }
 
 export const fetchBlogByID = (id: string): AppThunk => async dispatch => {
   try {
+    dispatch(appSetStatus('loading'))
     const res = await API.getBlogByID(id)
     dispatch(setBlogs([res.data]))
-
   } catch (error: any) {
     console.log(error)
+  } finally {
+    dispatch(appSetStatus('success'))
   }
 }

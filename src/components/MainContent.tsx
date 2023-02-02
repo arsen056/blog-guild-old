@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
 import {Outlet} from "react-router-dom";
+import {WrapperContent} from "./WrapperContent";
 
 type MainContentType = {
   title: string
@@ -9,7 +10,10 @@ type MainContentType = {
 export const MainContent:FC<MainContentType> = ({title}) => {
   return (
     <Main>
-      <Title>{title}</Title>
+      <WrapperContent>
+        <Title>{title}</Title>
+      </WrapperContent>
+
       <div>
         <Outlet/>
       </div>
@@ -20,7 +24,7 @@ export const MainContent:FC<MainContentType> = ({title}) => {
 const Main = styled.main`
   flex-basis: 80%;
   background-color: #FAF7F8;
-  padding: 20px 20px 50px;
+  height: 100vh;
 `
 
 const Title = styled.h2`

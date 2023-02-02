@@ -1,5 +1,6 @@
 import {AppThunk} from "../store/store";
 import {API} from "../API/Api";
+import {appSetStatus} from "./appReducer";
 
 const initState: postsStateType = {
   posts: [],
@@ -36,19 +37,25 @@ export const setPosts = (posts: PostType[], totalCount: number) => ({type: 'POST
 
 export const fetchPostsForBlogs = (id: string): AppThunk => async dispatch => {
   try {
+    dispatch(appSetStatus('loading'))
     const res = await API.getPostsForBlogs(id);
     dispatch(setPosts(res.data.items, res.data.totalCount))
   } catch (error: any) {
     console.log(error)
+  } finally {
+    dispatch(appSetStatus('success'))
   }
 }
 
 export const getPosts = (): AppThunk => async dispatch => {
   try {
+    dispatch(appSetStatus('loading'))
     const res = await API.getPosts();
     dispatch(setPosts(res.data.items, res.data.totalCount))
   } catch (error: any) {
     console.log(error)
+  } finally {
+    dispatch(appSetStatus('success'))
   }
 }
 

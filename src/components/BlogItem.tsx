@@ -13,11 +13,10 @@ type BlogItemType = {
 
 export const BlogItem: FC<BlogItemType> = ({id, title, webSite, description, creationDate, isShow}) => {
 
-
   return (
     <Item>
       <ImgWrapper>
-        <img src="https://via.placeholder.com/156.png/" alt="image blog"/>
+        <img src="https://via.placeholder.com/156.png/" alt="blog"/>
       </ImgWrapper>
 
       <ContentBlog>
