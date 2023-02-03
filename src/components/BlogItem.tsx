@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import {LongMenu} from "./LongMenu/LongMenu";
 
 type BlogItemType = {
   id: string
@@ -36,7 +37,8 @@ export const BlogItem: FC<BlogItemType> = ({id, title, webSite, description, cre
         {isShow && <ShowMore>Show more</ShowMore>}
 
       </ContentBlog>
-
+      {/*<Link to={`${id}/add_blog`}>Edit blog</Link>*/}
+      <LongMenu/>
     </Item>
   );
 };

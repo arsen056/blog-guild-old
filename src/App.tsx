@@ -7,6 +7,8 @@ import {BlogList} from "./components/BlogList";
 import {ShowBlog} from "./components/ShowBlog";
 import {ShowPost} from "./components/ShowPost";
 import {PostList} from "./components/PostList";
+import {AddBlog} from "./components/AddBlog";
+import {AddBlog1} from "./components/AddBlog1";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path={'/blogs'} element={<BlogList/>}/>
             <Route path={'/blogs/:id'} element={<ShowBlog/>}/>
             <Route path={'/blogs/:id/:postid'} element={ <ShowPost/> }  />
+            <Route path={'/blogs/add_blog'} element={ <AddBlog1/> }  />
+            <Route path={'/blogs/:id/add_blog'} element={ <AddBlog1/> }  />
           </Route>
 
           <Route path={'/posts'} element={<MainContent title={'Posts'} />} >

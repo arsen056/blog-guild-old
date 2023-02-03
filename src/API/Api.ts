@@ -5,6 +5,15 @@ const instance = axios.create({
 })
 
 export const API = {
+  auth(){
+    return instance.post('auth/login', {
+      loginOrEmail: "SuperAdmin",
+      password: "SuperAdmin"
+    })
+  },
+  me() {
+    return instance.get('auth/me')
+  },
   getBlogs() {
     return instance.get('blogs')
   },

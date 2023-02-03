@@ -10,8 +10,8 @@ export const blogReducer = (state= initState, action: BlogsReducerAT) => {
   switch (action.type) {
     case "BLOGS/SET_BLOGS":
       return {...state, blogs: action.blogs}
-    case "BLOGS/SET_OPENED_BLOG":
-      return {...state, openedBlog: action.blog}
+    case "BLOGS/ADD_BLOG":
+      return {...state, blogs: [action.blog, ...state.blogs]}
     default:
       return state
   }
@@ -29,9 +29,9 @@ export type BlogType = {
   createdAt: string,
 }
 
-export type BlogsReducerAT = ReturnType<typeof setBlogs> | ReturnType<typeof setOpenedBlog>
+export type BlogsReducerAT = ReturnType<typeof setBlogs> | ReturnType<typeof addBlog>
 export const setBlogs = (blogs: BlogType[]) => ({type: 'BLOGS/SET_BLOGS', blogs} as const)
-export const setOpenedBlog = (blog: BlogType) => ({type: 'BLOGS/SET_OPENED_BLOG', blog} as const)
+export const addBlog = (blog: BlogType) => ({type: 'BLOGS/ADD_BLOG', blog} as const)
 
 export const fetchBlogs = (): AppThunk => async dispatch => {
   try {

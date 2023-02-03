@@ -13,7 +13,6 @@ export const MainContent:FC<MainContentType> = ({title}) => {
       <WrapperContent>
         <Title>{title}</Title>
       </WrapperContent>
-
       <div>
         <Outlet/>
       </div>
@@ -24,7 +23,7 @@ export const MainContent:FC<MainContentType> = ({title}) => {
 const Main = styled.main`
   flex-basis: 80%;
   background-color: #FAF7F8;
-  height: 100vh;
+  height: 100%;
 `
 
 const Title = styled.h2`

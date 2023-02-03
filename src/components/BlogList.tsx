@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {WrapperContent} from "./WrapperContent";
 import {StatusAppType} from "../reducers/appReducer";
 import {Loader} from "./Loader";
+import {Link, NavLink} from "react-router-dom";
 
 
 export const BlogList = () => {
@@ -15,6 +16,7 @@ export const BlogList = () => {
 
   const blogs = useSelector<AppRootStateType, BlogType[]>(state => state.blogs.blogs)
   const status = useSelector<AppRootStateType, StatusAppType>(state => state.app.status)
+  const isSuperAdmin = useSelector<AppRootStateType, boolean>(state => state.app.isSuperAdmin)
 
   useEffect(() => {
     dispatch(fetchBlogs())
@@ -24,6 +26,13 @@ export const BlogList = () => {
 
   return (
     <WrapperContent>
+      {isSuperAdmin &&
+          <Link to={'add_blog'}>
+              <button>Add blog</button>
+          </Link>
+          }
+
+
       <div>
         {status === 'loading'
           ? <Loader/>
